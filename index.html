@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-image: url("https://img.freepik.com/premium-photo/abstract-tech-geometric-squares-background_88343-13990.jpg");
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .box{
+        padding:10px;
+        background-color:#a7d6eb75;
+        border-radius: 40px;
+        box-shadow: 0 0 10px rgba(163, 210, 219, 0.772);
+
+    }
+    
+    .stopwatch{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-style: italic;
+        font-size: 3em;
+        font-weight: bold;
+        border-radius: 45%;
+        border-color: #047508;
+        top :-2px;
+        left:-2px;
+        padding-bottom: 50px;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+
+    }
+    button {
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        align-content: flex-start;
+        font-size: 15px;
+        margin: 10px;
+        padding: 12px 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: 0.3s;
+        color:  #f8f5f5;
+    }
+    
+    
+    
+    #b1{
+        background-color:  #e7eaea00;
+        font-size:xx-large;
+       
+    }
+    #b2,#b3{
+        background-color:  #8dbcd236;
+        font-size: large;
+        border-style:groove;
+        height: 65px;
+        border-color: #ffffff3c;
+        border-width: 2px;
+        border-radius: 45px;
+    }
+    #b1:hover {
+        font-size: 40px;
+    }
+    #b2:hover,#b3:hover {
+        font-size: 23px;
+        height:70px;
+        width:70px;
+    }
+
+</style>
+<body>
+    <div class="box">
+        
+        <img src="images/stopwatch.png" style="height:200px">
+        <div class="stopwatch">00:00:00</div><BR>
+        <button id="b2" onclick="stopStopwatch()" alt="Pause"><i class="fa-thin fa-circle-stop fa-2xl" style="color: #060606;"></i></button>
+        <button id="b1" onclick="startStopwatch()"><i class="fa-solid fa-play fa-2xl" style="color: #ff0000;"></i></button>
+        <button id="b3" onclick="resetStopwatch()"><i class="fa-solid fa-arrow-rotate-left fa-lg" style="color: #060606;"></i></button>
+    </div>
+
+<script>
+    let timer, isRunning = false;
+let startTime, elapsedTime = 0;
+
+function startStopwatch() {
+    if (!isRunning) {
+        isRunning = true;
+        startTime = Date.now() - elapsedTime; 
+        timer = setInterval(updateStopwatch, 100);
+        document.getElementById("b2").innerHTML =
+            '<i class="fa-solid fa-pause fa-lg" style="color:black"></i>';
+    }
+}
+
+function stopStopwatch() {
+    isRunning = false;
+    clearInterval(timer);
+    
+    document.getElementById("b2").innerHTML =
+        '<i class="fa-thin fa-circle-stop fa-2xl" style="color: #060606;"></i>';
+}
+
+function resetStopwatch() {
+    isRunning = false;
+    clearInterval(timer);
+    elapsedTime = 0;
+    document.querySelector('.stopwatch').textContent = "00:00:00";
+    document.getElementById("b2").innerHTML =
+        '<i class="fa-thin fa-circle-stop fa-2xl" style="color: #060606;"></i>';
+}
+
+function updateStopwatch() {
+    let now = Date.now();
+    elapsedTime = now - startTime;
+    let totalSeconds = Math.floor(elapsedTime / 1000);
+    let hours = Math.floor(totalSeconds / 3600);
+    let minutes = Math.floor((totalSeconds % 3600) / 60);
+    let seconds = totalSeconds % 60;
+
+    document.querySelector('.stopwatch').textContent =
+        (hours < 10 ? "0" + hours : hours) + ":" +
+        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+        (seconds < 10 ? "0" + seconds : seconds);
+}
+
+</script>
+</body>
+</html>
